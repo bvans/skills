@@ -1,0 +1,36 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "github-fund-nav",
+  "version": "1.0.0",
+  "description": "Query the latest official NAV of specified Chinese public funds through the user's GitHub Actions workflow, preserving NAV dates and source-conflict checks.",
+  "repository": "https://github.com/bvans/skills",
+  "license": "MIT",
+  "keywords": [
+    "fund",
+    "nav",
+    "github-actions",
+    "finance",
+    "eastmoney"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "基金净值查询",
+        "shortDescription": "通过 GitHub Actions 查询指定基金的最新正式净值",
+        "longDescription": "查询一个或多个基金代码的最新正式单位净值。优先读取缓存；需要刷新或遇到未配置基金时，通过 GitHub 写入 query.json 触发 Actions，再读取并校验结果。",
+        "developerName": "bvans",
+        "category": "Finance",
+        "capabilities": [
+          "Read",
+          "Write"
+        ],
+        "websiteURL": "https://github.com/bvans/fund-nav-public",
+        "defaultPrompt": [
+          "查询基金 000218 和 162412 的最新正式净值",
+          "强制刷新 110022 的最新净值",
+          "看看 005051 最新公布到哪一天了"
+        ]
+      }
+    }
+  }
+}
