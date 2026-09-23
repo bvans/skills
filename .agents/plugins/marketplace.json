@@ -1,0 +1,20 @@
+{
+  "name": "bvans-personal-plugins",
+  "interface": {
+    "displayName": "bvans Personal Plugins"
+  },
+  "plugins": [
+    {
+      "name": "github-fund-nav",
+      "source": {
+        "source": "local",
+        "path": "./plugins/github-fund-nav"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Finance"
+    }
+  ]
+}
