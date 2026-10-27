@@ -43,3 +43,5 @@ OpenAI's current Skills help page lists direct skill creation/upload for eligibl
 - `查询 000218 最新正式净值`
 - `刷新 110022 的最新净值`
 - `查询 000218、162412、005051，告诉我各自净值日期`
+- `查询中证1000最新点位、东方财富源时间和120日回撤`
+- `查询中证A500最新点位，确认是不是今天的数据`
