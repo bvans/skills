@@ -131,3 +131,16 @@ Historical data is only for recent-high/drawdown context. It must never replace 
 3. Never turn null/missing history into a fabricated drawdown.
 4. Never treat today's high as a 120-day high unless the actual 120-day history proves it.
 5. When Tencent history fallback is used, state that only historical context came from Tencent.
+
+
+## Explicit refresh trigger
+
+Because GitHub Actions `schedule` may be delayed substantially, latest/current market queries should prefer an explicit push-triggered refresh when write access is available.
+
+Dedicated trigger file:
+
+`trigger/index-refresh.txt`
+
+Updating this file and pushing to `main` triggers `.github/workflows/fetch-index-quotes.yml` through its `push.paths` filter without changing quote-collection business logic.
+
+After the push-triggered workflow completes successfully, re-read `data/indices/latest.json` and validate `source_date` / `source_time` before reporting the quote.
