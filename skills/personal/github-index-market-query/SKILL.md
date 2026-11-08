@@ -43,6 +43,25 @@ Tracked codes currently include:
 4. Never substitute Tencent history for the latest point. Tencent is allowed only for historical K-line context.
 5. Never use a search-engine snippet, Investing.com, or an unrelated quote page as the first source when the repository cache contains a valid Eastmoney quote.
 
+## Explicit refresh before latest/current queries
+
+GitHub scheduled workflows can be delayed by minutes or even hours. Therefore, for requests that ask for **latest/current/现在/实时/刚刚** market data, do **not** rely on the scheduled run alone.
+
+When GitHub write access is available, first force a fresh workflow run by making an explicit push to the dedicated trigger file in `bvans/fund-nav-public`:
+
+`trigger/index-refresh.txt`
+
+Recommended procedure:
+
+1. Read the current `trigger/index-refresh.txt`.
+2. Replace or append the marker line with the current request timestamp / unique refresh marker.
+3. Push that change to the `main` branch. The workflow path filter includes this file, so this push triggers `.github/workflows/fetch-index-quotes.yml` immediately.
+4. Check the resulting GitHub Actions run and wait only within the current turn for it to finish when practical.
+5. After a successful run, re-read `data/indices/latest.json` and use its `source_time` / `source_date`.
+6. If the push-triggered run fails, report the failure explicitly. Do not silently fall back to a stale cache and call it current. Direct Eastmoney verification may then be used as a secondary verification path.
+
+For latest/current queries, this explicit push refresh is preferred over waiting for cron because GitHub `schedule` execution can be substantially delayed.
+
 ## Freshness handling
 
 For "latest/current/现在/实时" requests:
